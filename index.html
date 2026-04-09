@@ -122,71 +122,85 @@
   /* FULL CARD OVERLAY */
   #fullcard {
     display: none; position: fixed; inset: 0; z-index: 200;
-    background: rgba(13,31,60,0.96); overflow-y: auto;
-    padding: 10px 16px 40px;
+    background: rgba(13,31,60,0.97); overflow-y: auto;
+    padding: 16px 16px 40px;
     flex-direction: column; align-items: center;
   }
   #fullcard.show { display: flex; }
 
   .fullcard-inner {
     width: 100%; max-width: 420px;
-    background: linear-gradient(160deg, #eef5fb, #f8fbff, #eaf2f9);
-    border-radius: 20px; padding: 32px 24px 28px;
+    background: linear-gradient(170deg, #e8f4f0 0%, #f0f8f5 30%, #eaf4f8 60%, #e4f0f7 100%);
+    border-radius: 4px; padding: 0;
     position: relative; overflow: hidden;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.6), inset 0 0 0 1.5px rgba(122,167,204,0.5);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.7);
     animation: cardIn 0.7s cubic-bezier(0.34,1.56,0.64,1);
     margin-top: 8px;
   }
   @keyframes cardIn {
-    from { transform: scale(0.8) translateY(60px); opacity: 0; }
+    from { transform: scale(0.85) translateY(50px); opacity: 0; }
     to { transform: scale(1) translateY(0); opacity: 1; }
   }
 
-  .fc-corner { position: absolute; font-size: 54px; opacity: 0.5; }
-  .fc-tl { top: -8px; left: -8px; transform: rotate(-10deg); }
-  .fc-tr { top: -8px; right: -8px; transform: rotate(10deg) scaleX(-1); }
-  .fc-bl { bottom: -8px; left: -8px; transform: rotate(10deg); }
-  .fc-br { bottom: -8px; right: -8px; transform: rotate(-10deg) scaleX(-1); }
+  /* Floral corners using SVG background */
+  .floral-tr {
+    position: absolute; top: 0; right: 0;
+    width: 180px; height: 200px; pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 200'%3E%3Ccircle cx='140' cy='30' r='18' fill='%2388afd4' opacity='.7'/%3E%3Ccircle cx='158' cy='48' r='14' fill='%236b97c8' opacity='.6'/%3E%3Ccircle cx='120' cy='20' r='12' fill='%23a0c0e0' opacity='.65'/%3E%3Ccircle cx='155' cy='18' r='10' fill='%2378aad0' opacity='.55'/%3E%3Ccircle cx='130' cy='55' r='10' fill='%2390b8d8' opacity='.6'/%3E%3Ccircle cx='165' cy='70' r='9' fill='%236a94c4' opacity='.5'/%3E%3Ccircle cx='108' cy='40' r='9' fill='%23b0ccdf' opacity='.5'/%3E%3Ccircle cx='145' cy='75' r='8' fill='%2380aacc' opacity='.45'/%3E%3Cline x1='125' y1='80' x2='100' y2='140' stroke='%2390b09a' stroke-width='2' opacity='.5'/%3E%3Cellipse cx='108' cy='125' rx='14' ry='8' fill='%2398b89e' opacity='.45' transform='rotate(-20 108 125)'/%3E%3Cellipse cx='95' cy='148' rx='12' ry='7' fill='%2388ac94' opacity='.4' transform='rotate(-35 95 148)'/%3E%3Cline x1='140' y1='85' x2='170' y2='130' stroke='%2390b09a' stroke-width='2' opacity='.4'/%3E%3Ccircle cx='140' cy='30' r='4' fill='%23fff' opacity='.6'/%3E%3Ccircle cx='158' cy='48' r='3' fill='%23fff' opacity='.5'/%3E%3Ccircle cx='120' cy='20' r='3' fill='%23fff' opacity='.5'/%3E%3Ccircle cx='155' cy='18' r='3' fill='%23fff' opacity='.5'/%3E%3Ccircle cx='130' cy='55' r='3' fill='%23fff' opacity='.5'/%3E%3C/svg%3E") no-repeat top right;
+    background-size: contain;
+  }
+  .floral-bl {
+    position: absolute; bottom: 0; left: 0;
+    width: 200px; height: 200px; pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='40' cy='160' r='18' fill='%2388afd4' opacity='.7'/%3E%3Ccircle cx='20' cy='148' r='14' fill='%236b97c8' opacity='.6'/%3E%3Ccircle cx='65' cy='172' r='12' fill='%23a0c0e0' opacity='.65'/%3E%3Ccircle cx='18' cy='175' r='10' fill='%2378aad0' opacity='.55'/%3E%3Ccircle cx='55' cy='145' r='10' fill='%2390b8d8' opacity='.6'/%3E%3Ccircle cx='10' cy='130' r='9' fill='%236a94c4' opacity='.5'/%3E%3Ccircle cx='80' cy='158' r='9' fill='%23b0ccdf' opacity='.5'/%3E%3Ccircle cx='35' cy='135' r='8' fill='%2380aacc' opacity='.45'/%3E%3Cline x1='70' y1='130' x2='100' y2='80' stroke='%2390b09a' stroke-width='2' opacity='.5'/%3E%3Cellipse cx='85' cy='95' rx='14' ry='8' fill='%2398b89e' opacity='.45' transform='rotate(20 85 95)'/%3E%3Cellipse cx='100' cy='72' rx='12' ry='7' fill='%2388ac94' opacity='.4' transform='rotate(35 100 72)'/%3E%3Ccircle cx='40' cy='160' r='4' fill='%23fff' opacity='.6'/%3E%3Ccircle cx='20' cy='148' r='3' fill='%23fff' opacity='.5'/%3E%3Ccircle cx='65' cy='172' r='3' fill='%23fff' opacity='.5'/%3E%3Ccircle cx='18' cy='175' r='3' fill='%23fff' opacity='.5'/%3E%3Ccircle cx='55' cy='145' r='3' fill='%23fff' opacity='.5'/%3E%3C/svg%3E") no-repeat bottom left;
+    background-size: contain;
+  }
 
-  .fc-verse { font-style: italic; font-size: 12px; color: #5a7fa0; text-align: center; line-height: 1.6; margin-bottom: 10px; }
-  .fc-title { font-family: 'Great Vibes', cursive; font-size: 46px; color: var(--navy); text-align: center; margin-bottom: 8px; line-height: 1.1; }
+  .fc-content { padding: 36px 28px 32px; position: relative; z-index: 2; }
 
-  .divider { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+  .fc-verse { font-style: italic; font-size: 13px; color: #1a3a6b; text-align: center; line-height: 1.7; margin-bottom: 12px; font-family: 'Cormorant Garamond', serif; }
+  .fc-title { font-family: 'Great Vibes', cursive; font-size: 52px; color: #1a3a6b; text-align: center; margin-bottom: 14px; line-height: 1.1; }
+
+  .divider { display: flex; align-items: center; gap: 8px; margin: 10px 0; }
   .divider-line { flex: 1; height: 0.5px; background: linear-gradient(to right, transparent, #7ba7cc, transparent); }
   .divider-dot { width: 5px; height: 5px; background: #7ba7cc; border-radius: 50%; flex-shrink: 0; }
 
-  .fc-parents { text-align: center; font-size: 14px; font-weight: 600; color: var(--navy); line-height: 1.5; }
-  .fc-parents-sub { font-size: 11.5px; font-style: italic; color: #5a7fa0; text-align: center; line-height: 1.5; margin: 2px 0 8px; }
-  .fc-invite { font-style: italic; font-size: 13px; color: #3a5a80; text-align: center; line-height: 1.7; margin: 8px 0; }
-  .fc-bride { font-family: 'Great Vibes', cursive; font-size: 52px; color: var(--navy); text-align: center; line-height: 1.1; }
-  .fc-with { text-align: center; font-style: italic; font-size: 14px; color: #7ba7cc; margin: 2px 0; }
-  .fc-groom { font-family: 'Great Vibes', cursive; font-size: 46px; color: var(--navy); text-align: center; line-height: 1.1; }
-  .fc-groom-parents { text-align: center; font-size: 13px; font-weight: 600; color: var(--navy); margin: 8px 0 2px; }
-  .fc-groom-sub { font-size: 11.5px; font-style: italic; color: #5a7fa0; text-align: center; margin-bottom: 10px; }
+  .fc-parents { text-align: center; font-size: 15px; font-weight: 700; color: #1a3a6b; line-height: 1.5; font-family: 'Cormorant Garamond', serif; }
+  .fc-parents-sub { font-size: 12px; font-style: italic; color: #1a3a6b; text-align: center; line-height: 1.6; margin: 3px 0 10px; font-family: 'Cormorant Garamond', serif; }
+  .fc-invite { font-style: italic; font-size: 15px; color: #1a3a6b; text-align: center; line-height: 1.8; margin: 10px 0; font-family: 'Great Vibes', cursive; font-size: 22px; }
+  .fc-bride { font-family: 'Great Vibes', cursive; font-size: 58px; color: #1a3a6b; text-align: center; line-height: 1.1; margin: 6px 0 2px; }
+  .fc-with { text-align: center; font-style: italic; font-size: 15px; color: #1a3a6b; margin: 4px 0; font-family: 'Cormorant Garamond', serif; }
+  .fc-groom { font-family: 'Great Vibes', cursive; font-size: 52px; color: #1a3a6b; text-align: center; line-height: 1.1; margin: 2px 0 8px; }
+  .fc-groom-parents { text-align: center; font-size: 14px; font-weight: 700; color: #1a3a6b; margin: 8px 0 2px; font-family: 'Cormorant Garamond', serif; }
+  .fc-groom-sub { font-size: 12px; font-style: italic; color: #1a3a6b; text-align: center; margin-bottom: 12px; font-family: 'Cormorant Garamond', serif; }
 
   .fc-details {
-    display: flex; align-items: flex-start; justify-content: space-around; gap: 8px;
-    padding: 14px 8px; background: rgba(122,167,204,0.12);
-    border-radius: 12px; border: 0.5px solid rgba(122,167,204,0.35); margin: 12px 0;
+    display: flex; align-items: center; justify-content: space-around; gap: 6px;
+    padding: 16px 8px; margin: 14px 0;
   }
   .fc-col { text-align: center; flex: 1; }
-  .fc-icon { font-size: 22px; margin-bottom: 4px; }
-  .fc-label { font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; color: var(--navy); line-height: 1.3; }
-  .fc-label-lg { font-size: 20px; }
-  .fc-sub { font-size: 10.5px; color: #5a7fa0; font-style: italic; line-height: 1.4; margin-top: 2px; }
-  .fc-sep { width: 0.5px; background: rgba(122,167,204,0.4); align-self: stretch; margin: 4px 0; }
-
-  .fc-church { font-size: 12.5px; font-style: italic; color: #3a5a80; text-align: center; line-height: 1.7; margin: 8px 0; }
-  .fc-church strong { color: var(--navy); font-style: normal; font-weight: 600; }
-
-  .fc-reception {
-    background: rgba(26,58,107,0.07); border: 0.5px solid rgba(122,167,204,0.35);
-    border-radius: 10px; padding: 12px 16px; margin: 8px 0; text-align: center;
+  .fc-day-box {
+    background: #1a3a6b; color: #fff;
+    font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 1px;
+    padding: 4px 8px; border-radius: 3px; writing-mode: vertical-rl;
+    text-orientation: mixed; transform: rotate(180deg);
+    display: inline-block; margin-right: 6px; vertical-align: middle;
   }
-  .fc-reception-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 2px; color: var(--navy); }
-  .fc-reception-text { font-size: 12px; font-style: italic; color: #5a7fa0; line-height: 1.5; margin-top: 4px; }
+  .fc-date-num { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 700; color: #1a3a6b; line-height: 1; }
+  .fc-date-mon { font-family: 'Cinzel', serif; font-size: 14px; color: #1a3a6b; font-weight: 600; }
+  .fc-icon { font-size: 22px; margin-bottom: 6px; color: #1a3a6b; }
+  .fc-label { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 700; color: #1a3a6b; line-height: 1.4; }
+  .fc-sub { font-size: 11px; color: #1a3a6b; font-style: italic; line-height: 1.4; margin-top: 2px; font-family: 'Cormorant Garamond', serif; }
+  .fc-sep { width: 1px; background: rgba(26,58,107,0.25); align-self: stretch; margin: 4px 0; min-height: 60px; }
 
-  .fc-compliments { text-align: center; font-family: 'Great Vibes', cursive; font-size: 22px; color: #7ba7cc; margin-top: 10px; }
+  .fc-church { font-size: 14px; font-style: italic; color: #1a3a6b; text-align: center; line-height: 1.8; margin: 10px 0; font-family: 'Cormorant Garamond', serif; }
+  .fc-church strong { color: #1a3a6b; font-style: normal; font-weight: 700; }
+
+  .fc-reception { text-align: center; margin: 10px 0; font-family: 'Cormorant Garamond', serif; }
+  .fc-reception-label { font-style: italic; font-size: 14px; color: #1a3a6b; line-height: 1.7; }
+  .fc-reception-label strong { font-weight: 700; font-style: normal; }
+
+  .fc-compliments { text-align: center; font-family: 'Great Vibes', cursive; font-size: 24px; color: #1a3a6b; margin-top: 12px; }
 
   .fc-close {
     position: sticky; top: 10px; align-self: flex-end;
@@ -238,63 +252,65 @@
   <button class="fc-close" onclick="closeFullCard()">✕</button>
 
   <div class="fullcard-inner">
-    <div class="fc-corner fc-tl">🌸</div>
-    <div class="fc-corner fc-tr">🌸</div>
-    <div class="fc-corner fc-bl">🌿</div>
-    <div class="fc-corner fc-br">🌿</div>
+    <div class="floral-tr"></div>
+    <div class="floral-bl"></div>
 
-    <div class="fc-verse">"It is not good that the man should be alone;<br>I will make him a help mate for him" (Gen 2:18)</div>
-    <div class="fc-title">Wedding Invitation</div>
-    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+    <div class="fc-content">
+      <div class="fc-verse">"It is not good that the man should be alone;<br>I will make him a help mate for him" (Gen 2:18)</div>
+      <div class="fc-title">Wedding Invitation</div>
 
-    <div class="fc-parents">Mr. G. Das &amp; Mrs. S. Mini</div>
-    <div class="fc-parents-sub">Kripa Bhavan, Paraluvila, Kannumamoodu,<br>K.K. Dist-629170. Mob: 9544435858</div>
+      <div class="fc-parents">Mr. G. Das &amp; Mrs. S. Mini</div>
+      <div class="fc-parents-sub">Kripa Bhavan, Paraluvila, Kannumamoodu,<br>K.K. Dist-629170. Mob: 9544435858</div>
 
-    <div class="fc-invite">We cordially invite your esteemed presence with family<br>on the auspicious occasion of the marriage of our daughter</div>
+      <div class="fc-invite">We cordially invite your esteemed presence with family on the auspicious occasion of the marriage of our daughter</div>
 
-    <div class="fc-bride">Sona Mol. D.M.</div>
-    <div class="fc-with">with</div>
-    <div class="fc-groom">Jaison. R</div>
+      <div class="fc-bride">Sona Mol. D.M.</div>
+      <div class="fc-with">with</div>
+      <div class="fc-groom">Jaison. R</div>
 
-    <div class="fc-groom-parents">S/o. Mr. C. Rasalam &amp; Mrs. N. Babydani Bai</div>
-    <div class="fc-groom-sub">Piranivilai, Pacode, Melpuram P.O-627168, K.K. Dist.</div>
+      <div class="fc-groom-parents">S/o. Mr. C. Rasalam &amp; Mrs. N. Babydani Bai</div>
+      <div class="fc-groom-sub">Piranivilai, Pacode, Melpuram P.O-627168, K.K. Dist.</div>
 
-    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+      <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
 
-    <div class="fc-details">
-      <div class="fc-col">
-        <div class="fc-icon">📅</div>
-        <div class="fc-label">Thursday</div>
-        <div class="fc-label fc-label-lg">14 May</div>
-        <div class="fc-sub">2026</div>
+      <div class="fc-details">
+        <div class="fc-col" style="display:flex;align-items:center;justify-content:center;">
+          <span class="fc-day-box">Thursday</span>
+          <div>
+            <div class="fc-date-num">14</div>
+            <div class="fc-date-mon">May</div>
+            <div class="fc-sub">2026</div>
+          </div>
+        </div>
+        <div class="fc-sep"></div>
+        <div class="fc-col">
+          <div class="fc-icon">📍</div>
+          <div class="fc-label">Goutham<br>Auditorium,</div>
+          <div class="fc-sub">Kunnathukal</div>
+        </div>
+        <div class="fc-sep"></div>
+        <div class="fc-col">
+          <div class="fc-icon">🕙</div>
+          <div class="fc-sub">at</div>
+          <div class="fc-label">10.30 am</div>
+        </div>
       </div>
-      <div class="fc-sep"></div>
-      <div class="fc-col">
-        <div class="fc-icon">📍</div>
-        <div class="fc-label">Goutham<br>Auditorium</div>
-        <div class="fc-sub">Kunnathukal</div>
+
+      <div class="fc-church">
+        Which will be solemnized at <strong>Sharon Fellowship Church, Kannacode</strong><br>
+        and for the subsequent functions connected at<br>
+        <strong>Goutham Auditorium, Kunnathukal</strong>
       </div>
-      <div class="fc-sep"></div>
-      <div class="fc-col">
-        <div class="fc-icon">🕙</div>
-        <div class="fc-label">10.30 am</div>
+
+      <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+      <div class="fc-reception">
+        <div class="fc-reception-label"><em><strong>Reception:</strong> On 13-05-2026 from 4.00 pm onwards<br>at <strong>Goutham Auditorium, Kunnathukal</strong></em></div>
       </div>
-    </div>
 
-    <div class="fc-church">
-      Which will be solemnized at<br>
-      <strong>Sharon Fellowship Church, Kannacode</strong><br>
-      and for subsequent functions connected at<br>
-      <strong>Goutham Auditorium, Kunnathukal</strong>
+      <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+      <div class="fc-compliments">With best compliments from: Sanoop. D.M</div>
     </div>
-
-    <div class="fc-reception">
-      <div class="fc-reception-label">✦ RECEPTION ✦</div>
-      <div class="fc-reception-text">On 13-05-2026 from 4.00 pm onwards<br>at Goutham Auditorium, Kunnathukal</div>
-    </div>
-
-    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
-    <div class="fc-compliments">With best compliments from: Sanoop. D.M</div>
   </div>
 </div>
 
