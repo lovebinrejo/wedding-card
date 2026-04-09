@@ -56,6 +56,7 @@
     width: 320px; height: 210px;
     position: relative; cursor: pointer;
     filter: drop-shadow(0 20px 60px rgba(0,0,0,0.6));
+    perspective: 800px;
   }
 
   .env-body {
@@ -84,6 +85,7 @@
     position: absolute; top: 0; left: 0; width: 320px;
     transform-origin: top center; transform: rotateX(0deg);
     transition: transform 1s cubic-bezier(0.4,0,0.2,1); z-index: 20;
+    transform-style: preserve-3d; backface-visibility: hidden;
   }
   .env-flap svg { display: block; }
 
