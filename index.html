@@ -48,9 +48,6 @@ html,body{width:100%;height:100%;background:#060f1e;font-family:'Cinzel',serif;o
 .seal{position:absolute;top:calc(var(--env-h)*.38);left:50%;transform:translateX(-50%);z-index:30;width:clamp(44px,12vw,56px);height:clamp(44px,12vw,56px);background:radial-gradient(circle at 38% 32%,#4a8fd4,#1a3a6b);border-radius:50%;border:2px solid var(--lb);display:flex;align-items:center;justify-content:center;font-size:clamp(16px,4vw,22px);box-shadow:0 4px 24px rgba(0,0,0,.6),0 0 0 4px rgba(123,167,204,.15);animation:sealPulse 2s ease-in-out infinite}
 @keyframes sealPulse{0%,100%{box-shadow:0 4px 24px rgba(0,0,0,.6),0 0 0 4px rgba(123,167,204,.15)}50%{box-shadow:0 4px 24px rgba(0,0,0,.6),0 0 0 10px rgba(123,167,204,.3)}}
 
-/* blank peek slip */
-.card-peek{position:absolute;bottom:15px;left:50%;transform:translateX(-50%) translateY(5px);width:calc(var(--env-w)*.82);height:20px;background:linear-gradient(to bottom,#eef5fb,#f8fbff);border-radius:4px 4px 0 0;z-index:4;opacity:0;transition:transform 1s cubic-bezier(.34,1.56,.64,1) 1s,opacity .5s ease 1s;box-shadow:0 -6px 20px rgba(122,167,204,.2)}
-.card-peek.show{transform:translateX(-50%) translateY(calc(var(--env-h)*-.38));opacity:1}
 
 .opened .seal{opacity:0;transform:translateX(-50%) scale(.3);animation:none}
 .opened .env-flap{transform:rotateX(-178deg)}
@@ -90,7 +87,6 @@ html,body{width:100%;height:100%;background:#060f1e;font-family:'Cinzel',serif;o
 <div id="scene">
   <div class="top-label">✦ &nbsp; WEDDING INVITATION &nbsp; ✦</div>
   <div class="env-wrap" id="envWrap" onclick="openEnvelope()">
-    <div class="card-peek" id="cardPeek"></div>
     <div class="env-body"></div>
     <div class="env-right"></div>
     <div class="env-flap" id="envFlap">
@@ -209,7 +205,6 @@ function openEnvelope(){
   opened=true;
   document.getElementById('openBtn').classList.add('hide');
   document.getElementById('envWrap').classList.add('clicked','opened');
-  setTimeout(()=>document.getElementById('cardPeek').classList.add('show'),950);
   setTimeout(launchConfetti,1250);
   setTimeout(()=>{
     const vb=document.getElementById('viewBtn');
