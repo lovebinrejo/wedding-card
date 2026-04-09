@@ -44,9 +44,10 @@
   }
 
   .env-label {
+    position: absolute; top: -44px; left: 50%; transform: translateX(-50%);
+    white-space: nowrap;
     color: #7ba7cc; font-family: 'Cinzel', serif;
     font-size: 11px; letter-spacing: 4px;
-    margin-bottom: 20px;
     animation: breathe 2s infinite alternate; text-align: center;
     transition: opacity 0.5s;
   }
@@ -84,9 +85,10 @@
   .env-flap {
     position: absolute; top: 0; left: 0; width: 320px;
     transform-origin: top center; transform: rotateX(0deg);
-    transition: transform 1s cubic-bezier(0.4,0,0.2,1); z-index: 20;
-    transform-style: preserve-3d; backface-visibility: hidden;
+    transition: transform 1s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease 0.9s;
+    z-index: 20;
   }
+  .opened .env-flap { opacity: 0; }
   .env-flap svg { display: block; }
 
 
@@ -101,7 +103,6 @@
   }
 
   .opened .seal { opacity: 0; transform: translateX(-50%) scale(0.5); pointer-events: none; }
-  .opened .env-flap { transform: rotateX(-175deg); }
 
   /* BUTTON */
   #viewBtn {
