@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation – Sona Mol & Jaison R</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --navy: #1a3a6b; --lightblue: #7ba7cc; }
+
+  body {
+    background: #0d1f3c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Cormorant Garamond', serif;
+    overflow: hidden;
+  }
+
+  #scene {
+    width: 100vw; height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+
+  .bg-glow {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(44,95,158,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(26,58,107,0.2) 0%, transparent 60%),
+      #0d1f3c;
+  }
+
+  .star { position: fixed; border-radius: 50%; background: #fff; animation: twinkle 3s infinite alternate; }
+  @keyframes twinkle { from { opacity: 0.1; } to { opacity: 0.8; } }
+
+  /* ENVELOPE */
+  .env-container {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  .env-label {
+    color: #7ba7cc; font-family: 'Cinzel', serif;
+    font-size: 11px; letter-spacing: 4px;
+    margin-bottom: 20px;
+    animation: breathe 2s infinite alternate; text-align: center;
+    transition: opacity 0.5s;
+  }
+  @keyframes breathe { from { opacity: 0.4; } to { opacity: 1; } }
+
+  .envelope {
+    width: 320px; height: 210px;
+    position: relative; cursor: pointer;
+    filter: drop-shadow(0 20px 60px rgba(0,0,0,0.6));
+  }
+
+  .env-body {
+    position: absolute; bottom: 0; left: 0;
+    width: 320px; height: 180px;
+    background: linear-gradient(160deg, #d6e8f5 0%, #b8d4eb 100%);
+    border-radius: 4px 4px 12px 12px; overflow: hidden;
+  }
+  .env-body::before {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    border-left: 160px solid transparent; border-right: 160px solid transparent;
+    border-bottom: 100px solid #9ec0da;
+  }
+  .env-body::after {
+    content: ''; position: absolute; top: 0; left: 0;
+    border-left: 160px solid #a8c8e0; border-right: 160px solid transparent;
+    border-top: 90px solid transparent;
+  }
+  .env-right {
+    position: absolute; top: 0; right: 0;
+    border-right: 160px solid #b4cfe5;
+    border-top: 90px solid transparent; border-bottom: 90px solid transparent;
+  }
+
+  .env-flap {
+    position: absolute; top: 0; left: 0; width: 320px;
+    transform-origin: top center; transform: rotateX(0deg);
+    transition: transform 1s cubic-bezier(0.4,0,0.2,1); z-index: 20;
+  }
+  .env-flap svg { display: block; }
+
+  /* Only a blank white peek - NO text, NO card content */
+  .card-peek {
+    position: absolute;
+    bottom: 18px; left: 50%;
+    transform: translateX(-50%) translateY(0px);
+    width: 255px; height: 25px;
+    background: #f5f9fd;
+    border-radius: 5px 5px 0 0;
+    z-index: 4; opacity: 0;
+    transition: transform 1s cubic-bezier(0.34,1.56,0.64,1) 0.9s, opacity 0.4s ease 0.9s;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
+  }
+  .card-peek.show {
+    transform: translateX(-50%) translateY(-70px);
+    opacity: 1;
+  }
+
+  .seal {
+    position: absolute; top: 78px; left: 50%; transform: translateX(-50%);
+    z-index: 30; width: 52px; height: 52px;
+    background: radial-gradient(circle at 40% 35%, #3a7bc8, #1a3a6b);
+    border-radius: 50%; border: 2px solid #7ba7cc;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    transition: opacity 0.4s, transform 0.4s;
+  }
+
+  .opened .seal { opacity: 0; transform: translateX(-50%) scale(0.5); pointer-events: none; }
+  .opened .env-flap { transform: rotateX(-175deg); }
+
+  /* BUTTON */
+  #viewBtn {
+    display: none; margin-top: 36px;
+    background: var(--navy); color: #fff;
+    font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 2px;
+    border: 1.5px solid #7ba7cc; padding: 13px 32px; border-radius: 40px;
+    cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    position: relative; z-index: 20;
+    animation: btnPulse 2s infinite alternate;
+  }
+  @keyframes btnPulse {
+    from { box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    to { box-shadow: 0 8px 32px rgba(122,167,204,0.5); }
+  }
+
+  /* FULL CARD OVERLAY */
+  #fullcard {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(13,31,60,0.96); overflow-y: auto;
+    padding: 10px 16px 40px;
+    flex-direction: column; align-items: center;
+  }
+  #fullcard.show { display: flex; }
+
+  .fullcard-inner {
+    width: 100%; max-width: 420px;
+    background: linear-gradient(160deg, #eef5fb, #f8fbff, #eaf2f9);
+    border-radius: 20px; padding: 32px 24px 28px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6), inset 0 0 0 1.5px rgba(122,167,204,0.5);
+    animation: cardIn 0.7s cubic-bezier(0.34,1.56,0.64,1);
+    margin-top: 8px;
+  }
+  @keyframes cardIn {
+    from { transform: scale(0.8) translateY(60px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+  }
+
+  .fc-corner { position: absolute; font-size: 54px; opacity: 0.5; }
+  .fc-tl { top: -8px; left: -8px; transform: rotate(-10deg); }
+  .fc-tr { top: -8px; right: -8px; transform: rotate(10deg) scaleX(-1); }
+  .fc-bl { bottom: -8px; left: -8px; transform: rotate(10deg); }
+  .fc-br { bottom: -8px; right: -8px; transform: rotate(-10deg) scaleX(-1); }
+
+  .fc-verse { font-style: italic; font-size: 12px; color: #5a7fa0; text-align: center; line-height: 1.6; margin-bottom: 10px; }
+  .fc-title { font-family: 'Great Vibes', cursive; font-size: 46px; color: var(--navy); text-align: center; margin-bottom: 8px; line-height: 1.1; }
+
+  .divider { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+  .divider-line { flex: 1; height: 0.5px; background: linear-gradient(to right, transparent, #7ba7cc, transparent); }
+  .divider-dot { width: 5px; height: 5px; background: #7ba7cc; border-radius: 50%; flex-shrink: 0; }
+
+  .fc-parents { text-align: center; font-size: 14px; font-weight: 600; color: var(--navy); line-height: 1.5; }
+  .fc-parents-sub { font-size: 11.5px; font-style: italic; color: #5a7fa0; text-align: center; line-height: 1.5; margin: 2px 0 8px; }
+  .fc-invite { font-style: italic; font-size: 13px; color: #3a5a80; text-align: center; line-height: 1.7; margin: 8px 0; }
+  .fc-bride { font-family: 'Great Vibes', cursive; font-size: 52px; color: var(--navy); text-align: center; line-height: 1.1; }
+  .fc-with { text-align: center; font-style: italic; font-size: 14px; color: #7ba7cc; margin: 2px 0; }
+  .fc-groom { font-family: 'Great Vibes', cursive; font-size: 46px; color: var(--navy); text-align: center; line-height: 1.1; }
+  .fc-groom-parents { text-align: center; font-size: 13px; font-weight: 600; color: var(--navy); margin: 8px 0 2px; }
+  .fc-groom-sub { font-size: 11.5px; font-style: italic; color: #5a7fa0; text-align: center; margin-bottom: 10px; }
+
+  .fc-details {
+    display: flex; align-items: flex-start; justify-content: space-around; gap: 8px;
+    padding: 14px 8px; background: rgba(122,167,204,0.12);
+    border-radius: 12px; border: 0.5px solid rgba(122,167,204,0.35); margin: 12px 0;
+  }
+  .fc-col { text-align: center; flex: 1; }
+  .fc-icon { font-size: 22px; margin-bottom: 4px; }
+  .fc-label { font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; color: var(--navy); line-height: 1.3; }
+  .fc-label-lg { font-size: 20px; }
+  .fc-sub { font-size: 10.5px; color: #5a7fa0; font-style: italic; line-height: 1.4; margin-top: 2px; }
+  .fc-sep { width: 0.5px; background: rgba(122,167,204,0.4); align-self: stretch; margin: 4px 0; }
+
+  .fc-church { font-size: 12.5px; font-style: italic; color: #3a5a80; text-align: center; line-height: 1.7; margin: 8px 0; }
+  .fc-church strong { color: var(--navy); font-style: normal; font-weight: 600; }
+
+  .fc-reception {
+    background: rgba(26,58,107,0.07); border: 0.5px solid rgba(122,167,204,0.35);
+    border-radius: 10px; padding: 12px 16px; margin: 8px 0; text-align: center;
+  }
+  .fc-reception-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 2px; color: var(--navy); }
+  .fc-reception-text { font-size: 12px; font-style: italic; color: #5a7fa0; line-height: 1.5; margin-top: 4px; }
+
+  .fc-compliments { text-align: center; font-family: 'Great Vibes', cursive; font-size: 22px; color: #7ba7cc; margin-top: 10px; }
+
+  .fc-close {
+    position: sticky; top: 10px; align-self: flex-end;
+    margin-bottom: -10px; z-index: 300;
+    background: rgba(26,58,107,0.9); color: #fff;
+    border: 1px solid #7ba7cc; width: 38px; height: 38px;
+    border-radius: 50%; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  #confettiContainer { position: fixed; inset: 0; pointer-events: none; z-index: 150; }
+</style>
+</head>
+<body>
+
+<div id="scene">
+  <div class="bg-glow"></div>
+  <div id="starsContainer"></div>
+
+  <div class="env-container">
+    <div class="env-label" id="envLabel">TAP TO OPEN YOUR INVITATION</div>
+
+    <div class="envelope" id="envelope" onclick="openEnvelope()">
+      <!-- ONLY a plain white slip peeks out — no card content shown here -->
+      <div class="card-peek" id="cardPeek"></div>
+
+      <div class="env-body"></div>
+      <div class="env-right"></div>
+
+      <div class="env-flap" id="envFlap">
+        <svg width="320" height="110" viewBox="0 0 320 110">
+          <defs>
+            <linearGradient id="fg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#c5dff0"/>
+              <stop offset="100%" stop-color="#a8c8e0"/>
+            </linearGradient>
+          </defs>
+          <polygon points="0,0 320,0 160,106" fill="url(#fg)"/>
+          <polygon points="4,0 316,0 160,102" fill="#d6eaf5" opacity="0.6"/>
+        </svg>
+      </div>
+
+      <div class="seal" id="seal">💍</div>
+    </div>
+
+    <button id="viewBtn" onclick="showFullCard()">VIEW FULL INVITATION &nbsp;✦</button>
+  </div>
+</div>
+
+<!-- FULL CARD OVERLAY — all details here only -->
+<div id="fullcard">
+  <button class="fc-close" onclick="closeFullCard()">✕</button>
+
+  <div class="fullcard-inner">
+    <div class="fc-corner fc-tl">🌸</div>
+    <div class="fc-corner fc-tr">🌸</div>
+    <div class="fc-corner fc-bl">🌿</div>
+    <div class="fc-corner fc-br">🌿</div>
+
+    <div class="fc-verse">"It is not good that the man should be alone;<br>I will make him a help mate for him" (Gen 2:18)</div>
+    <div class="fc-title">Wedding Invitation</div>
+    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+    <div class="fc-parents">Mr. G. Das &amp; Mrs. S. Mini</div>
+    <div class="fc-parents-sub">Kripa Bhavan, Paraluvila, Kannumamoodu,<br>K.K. Dist-629170. Mob: 9544435858</div>
+
+    <div class="fc-invite">We cordially invite your esteemed presence with family<br>on the auspicious occasion of the marriage of our daughter</div>
+
+    <div class="fc-bride">Sona Mol. D.M.</div>
+    <div class="fc-with">with</div>
+    <div class="fc-groom">Jaison. R</div>
+
+    <div class="fc-groom-parents">S/o. Mr. C. Rasalam &amp; Mrs. N. Babydani Bai</div>
+    <div class="fc-groom-sub">Piranivilai, Pacode, Melpuram P.O-627168, K.K. Dist.</div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+    <div class="fc-details">
+      <div class="fc-col">
+        <div class="fc-icon">📅</div>
+        <div class="fc-label">Thursday</div>
+        <div class="fc-label fc-label-lg">14 May</div>
+        <div class="fc-sub">2026</div>
+      </div>
+      <div class="fc-sep"></div>
+      <div class="fc-col">
+        <div class="fc-icon">📍</div>
+        <div class="fc-label">Goutham<br>Auditorium</div>
+        <div class="fc-sub">Kunnathukal</div>
+      </div>
+      <div class="fc-sep"></div>
+      <div class="fc-col">
+        <div class="fc-icon">🕙</div>
+        <div class="fc-label">10.30 am</div>
+      </div>
+    </div>
+
+    <div class="fc-church">
+      Which will be solemnized at<br>
+      <strong>Sharon Fellowship Church, Kannacode</strong><br>
+      and for subsequent functions connected at<br>
+      <strong>Goutham Auditorium, Kunnathukal</strong>
+    </div>
+
+    <div class="fc-reception">
+      <div class="fc-reception-label">✦ RECEPTION ✦</div>
+      <div class="fc-reception-text">On 13-05-2026 from 4.00 pm onwards<br>at Goutham Auditorium, Kunnathukal</div>
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+    <div class="fc-compliments">With best compliments from: Sanoop. D.M</div>
+  </div>
+</div>
+
+<div id="confettiContainer"></div>
+
+<script>
+  // Stars
+  const sc = document.getElementById('starsContainer');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const sz = 1 + Math.random() * 2.5;
+    s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*4}s;animation-duration:${2+Math.random()*3}s;`;
+    sc.appendChild(s);
+  }
+
+  let opened = false;
+
+  function openEnvelope() {
+    if (opened) return;
+    opened = true;
+
+    document.getElementById('envLabel').style.opacity = '0';
+    document.getElementById('envelope').style.cursor = 'default';
+
+    // Step 1: flap opens
+    document.getElementById('envelope').classList.add('opened');
+
+    // Step 2: blank white slip rises (no card text)
+    setTimeout(() => {
+      document.getElementById('cardPeek').classList.add('show');
+    }, 950);
+
+    // Step 3: confetti
+    setTimeout(launchConfetti, 1200);
+
+    // Step 4: button appears
+    setTimeout(() => {
+      document.getElementById('viewBtn').style.display = 'block';
+    }, 2200);
+  }
+
+  function launchConfetti() {
+    const colors = ['#7ba7cc','#1a3a6b','#c9a84c','#a8d8ea','#ffffff','#d6e8f5','#b4cfe5'];
+    const cont = document.getElementById('confettiContainer');
+    for (let i = 0; i < 70; i++) {
+      setTimeout(() => {
+        const p = document.createElement('div');
+        const sz = 4 + Math.random() * 7;
+        p.style.cssText = `position:absolute;width:${sz}px;height:${sz}px;background:${colors[Math.floor(Math.random()*colors.length)]};left:${25+Math.random()*50}%;top:50%;border-radius:${Math.random()>.5?'50%':'2px'};`;
+        cont.appendChild(p);
+        p.animate([
+          {transform:'translate(0,0) rotate(0deg)',opacity:1},
+          {transform:`translate(${(Math.random()-.5)*320}px,${-(80+Math.random()*260)}px) rotate(${Math.random()*720}deg)`,opacity:0}
+        ],{duration:1200+Math.random()*900,easing:'cubic-bezier(0,0.9,0.57,1)',fill:'forwards'});
+        setTimeout(()=>p.remove(), 2300);
+      }, i*22);
+    }
+  }
+
+  function showFullCard() {
+    document.getElementById('fullcard').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFullCard() {
+    document.getElementById('fullcard').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  // Auto-open after 1.8s
+  setTimeout(openEnvelope, 1800);
+</script>
+</body>
+</html>
